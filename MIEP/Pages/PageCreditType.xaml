@@ -1,0 +1,81 @@
+﻿<Page x:Class="MIEP.Pages.PageCreditType"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MIEP.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PageCreditType" Style="{StaticResource MainPage}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Margin="30" Background="{StaticResource BackGround}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Content="Простой" Style="{StaticResource lblSecond}"/>
+                <Label Grid.Row="1" Content="Требуется только&#10;       паспорт"/>
+                <Label Grid.Row="2" Content="Минимальный срок&#10;     от 12 месяцев"/>
+                <Label Grid.Row="3" Content="20% годовых" Style="{StaticResource lblMain}"/>
+                <Border Grid.RowSpan="4" BorderBrush="Gray" BorderThickness="1"/>
+            </Grid>
+            <Button Grid.Row="1" x:Name="btnSimple" Content="Рассчитать кредит" Click="btnSimple_Click"/>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Margin="30" Background="{StaticResource BackGround}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Content="Оптимальный" Style="{StaticResource lblSecond}"/>
+                <Label Grid.Row="1" Content="Требуется паспорт и&#10;  справка о доходах"/>
+                <Label Grid.Row="2" Content="Минимальный срок&#10;     от 36 месяцев"/>
+                <Label Grid.Row="3" Content="18% годовых" Style="{StaticResource lblMain}"/>
+                <Border Grid.RowSpan="4" BorderBrush="Gray" BorderThickness="1"/>
+            </Grid>
+            <Button Grid.Row="1" x:Name="btnOptimal" Content="Рассчитать кредит" Click="btnOptimal_Click"/>
+        </Grid>
+
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Margin="30" Background="{StaticResource BackGround}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Content="Льготный" Style="{StaticResource lblSecond}"/>
+                <Label Grid.Row="1" Content="   Требуется паспорт и&#10;зарплатная карта нашего&#10;               банка"/>
+                <Label Grid.Row="2" Content="Минимальный срок&#10;     от 60 месяцев"/>
+                <Label Grid.Row="3" Content="16% годовых" Style="{StaticResource lblMain}"/>
+                <Border Grid.RowSpan="4" BorderBrush="Gray" BorderThickness="1"/>
+            </Grid>
+            <Button Grid.Row="1" x:Name="btnLgot" Content="Рассчитать кредит" Click="btnLgot_Click"/>
+        </Grid>
+
+    </Grid>
+    
+</Page>

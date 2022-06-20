@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище MIEPModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BankAccount">
+          <Key>
+            <PropertyRef Name="NumberAccount" />
+          </Key>
+          <Property Name="NumberAccount" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="DateOpen" Type="date" Nullable="false" />
+          <Property Name="Balance" Type="float" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Contract">
+          <Key>
+            <PropertyRef Name="IDContract" />
+          </Key>
+          <Property Name="IDContract" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumberAccount" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="float" Nullable="false" />
+          <Property Name="Period" Type="int" Nullable="false" />
+          <Property Name="ExpirationDate" Type="date" Nullable="false" />
+          <Property Name="Percet" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="IDOperation" />
+          </Key>
+          <Property Name="IDOperation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameOperation" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="_DateTime" Type="datetime" Nullable="false" />
+          <Property Name="Amount" Type="float" Nullable="false" />
+          <Property Name="Account" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="IDType" />
+          </Key>
+          <Property Name="IDType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameType" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
+          <Property Name="Series" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="EMail" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="DateOfIssue" Type="date" Nullable="false" />
+          <Property Name="Issued" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="PlaceOfBirth" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__BankAccoun__Type__145C0A3F">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="BankAccount" Type="Self.BankAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="BankAccount">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BankAccoun__Type__15502E78">
+          <End Role="Type" Type="Self.Type" Multiplicity="1" />
+          <End Role="BankAccount" Type="Self.BankAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="IDType" />
+            </Principal>
+            <Dependent Role="BankAccount">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Contract__Percet__1B0907CE">
+          <End Role="BankAccount" Type="Self.BankAccount" Multiplicity="1" />
+          <End Role="Contract" Type="Self.Contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BankAccount">
+              <PropertyRef Name="NumberAccount" />
+            </Principal>
+            <Dependent Role="Contract">
+              <PropertyRef Name="NumberAccount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Contract__UserID__1BFD2C07">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Contract" Type="Self.Contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Contract">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__History__Account__182C9B23">
+          <End Role="BankAccount" Type="Self.BankAccount" Multiplicity="1" />
+          <End Role="History" Type="Self.History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BankAccount">
+              <PropertyRef Name="NumberAccount" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="Account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище MIEPModelContainer">
+          <EntitySet Name="BankAccount" EntityType="Self.BankAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contract" EntityType="Self.Contract" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="History" EntityType="Self.History" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__BankAccoun__Type__145C0A3F" Association="Self.FK__BankAccoun__Type__145C0A3F">
+            <End Role="User" EntitySet="User" />
+            <End Role="BankAccount" EntitySet="BankAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BankAccoun__Type__15502E78" Association="Self.FK__BankAccoun__Type__15502E78">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="BankAccount" EntitySet="BankAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Contract__Percet__1B0907CE" Association="Self.FK__Contract__Percet__1B0907CE">
+            <End Role="BankAccount" EntitySet="BankAccount" />
+            <End Role="Contract" EntitySet="Contract" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Contract__UserID__1BFD2C07" Association="Self.FK__Contract__UserID__1BFD2C07">
+            <End Role="User" EntitySet="User" />
+            <End Role="Contract" EntitySet="Contract" />
+          </AssociationSet>
+          <AssociationSet Name="FK__History__Account__182C9B23" Association="Self.FK__History__Account__182C9B23">
+            <End Role="BankAccount" EntitySet="BankAccount" />
+            <End Role="History" EntitySet="History" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MIEPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BankAccount">
+          <Key>
+            <PropertyRef Name="NumberAccount" />
+          </Key>
+          <Property Name="NumberAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="DateOpen" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Balance" Type="Double" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK__BankAccoun__Type__145C0A3F" FromRole="BankAccount" ToRole="User" />
+          <NavigationProperty Name="Type1" Relationship="Self.FK__BankAccoun__Type__15502E78" FromRole="BankAccount" ToRole="Type" />
+          <NavigationProperty Name="Contract" Relationship="Self.FK__Contract__Percet__1B0907CE" FromRole="BankAccount" ToRole="Contract" />
+          <NavigationProperty Name="History" Relationship="Self.FK__History__Account__182C9B23" FromRole="BankAccount" ToRole="History" />
+        </EntityType>
+        <EntityType Name="Contract">
+          <Key>
+            <PropertyRef Name="IDContract" />
+          </Key>
+          <Property Name="IDContract" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumberAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Double" Nullable="false" />
+          <Property Name="Period" Type="Int32" Nullable="false" />
+          <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Percet" Type="Double" Nullable="false" />
+          <NavigationProperty Name="BankAccount" Relationship="Self.FK__Contract__Percet__1B0907CE" FromRole="Contract" ToRole="BankAccount" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Contract__UserID__1BFD2C07" FromRole="Contract" ToRole="User" />
+        </EntityType>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="IDOperation" />
+          </Key>
+          <Property Name="IDOperation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameOperation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C_DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Amount" Type="Double" Nullable="false" />
+          <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BankAccount" Relationship="Self.FK__History__Account__182C9B23" FromRole="History" ToRole="BankAccount" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="IDType" />
+          </Key>
+          <Property Name="IDType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BankAccount" Relationship="Self.FK__BankAccoun__Type__15502E78" FromRole="Type" ToRole="BankAccount" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Series" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Adress" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EMail" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateOfIssue" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Issued" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PlaceOfBirth" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BankAccount" Relationship="Self.FK__BankAccoun__Type__145C0A3F" FromRole="User" ToRole="BankAccount" />
+          <NavigationProperty Name="Contract" Relationship="Self.FK__Contract__UserID__1BFD2C07" FromRole="User" ToRole="Contract" />
+        </EntityType>
+        <Association Name="FK__BankAccoun__Type__145C0A3F">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="BankAccount" Type="Self.BankAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="BankAccount">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BankAccoun__Type__15502E78">
+          <End Role="Type" Type="Self.Type" Multiplicity="1" />
+          <End Role="BankAccount" Type="Self.BankAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="IDType" />
+            </Principal>
+            <Dependent Role="BankAccount">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Contract__Percet__1B0907CE">
+          <End Role="BankAccount" Type="Self.BankAccount" Multiplicity="1" />
+          <End Role="Contract" Type="Self.Contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BankAccount">
+              <PropertyRef Name="NumberAccount" />
+            </Principal>
+            <Dependent Role="Contract">
+              <PropertyRef Name="NumberAccount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__History__Account__182C9B23">
+          <End Role="BankAccount" Type="Self.BankAccount" Multiplicity="1" />
+          <End Role="History" Type="Self.History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BankAccount">
+              <PropertyRef Name="NumberAccount" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="Account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Contract__UserID__1BFD2C07">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Contract" Type="Self.Contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Contract">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MIEPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BankAccount" EntityType="Self.BankAccount" />
+          <EntitySet Name="Contract" EntityType="Self.Contract" />
+          <EntitySet Name="History" EntityType="Self.History" />
+          <EntitySet Name="Type" EntityType="Self.Type" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK__BankAccoun__Type__145C0A3F" Association="Self.FK__BankAccoun__Type__145C0A3F">
+            <End Role="User" EntitySet="User" />
+            <End Role="BankAccount" EntitySet="BankAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BankAccoun__Type__15502E78" Association="Self.FK__BankAccoun__Type__15502E78">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="BankAccount" EntitySet="BankAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Contract__Percet__1B0907CE" Association="Self.FK__Contract__Percet__1B0907CE">
+            <End Role="BankAccount" EntitySet="BankAccount" />
+            <End Role="Contract" EntitySet="Contract" />
+          </AssociationSet>
+          <AssociationSet Name="FK__History__Account__182C9B23" Association="Self.FK__History__Account__182C9B23">
+            <End Role="BankAccount" EntitySet="BankAccount" />
+            <End Role="History" EntitySet="History" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Contract__UserID__1BFD2C07" Association="Self.FK__Contract__UserID__1BFD2C07">
+            <End Role="User" EntitySet="User" />
+            <End Role="Contract" EntitySet="Contract" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище MIEPModelContainer" CdmEntityContainer="MIEPEntities">
+          <EntitySetMapping Name="BankAccount">
+            <EntityTypeMapping TypeName="MIEPModel.BankAccount">
+              <MappingFragment StoreEntitySet="BankAccount">
+                <ScalarProperty Name="NumberAccount" ColumnName="NumberAccount" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DateOpen" ColumnName="DateOpen" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contract">
+            <EntityTypeMapping TypeName="MIEPModel.Contract">
+              <MappingFragment StoreEntitySet="Contract">
+                <ScalarProperty Name="IDContract" ColumnName="IDContract" />
+                <ScalarProperty Name="NumberAccount" ColumnName="NumberAccount" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Period" ColumnName="Period" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="Percet" ColumnName="Percet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="History">
+            <EntityTypeMapping TypeName="MIEPModel.History">
+              <MappingFragment StoreEntitySet="History">
+                <ScalarProperty Name="IDOperation" ColumnName="IDOperation" />
+                <ScalarProperty Name="NameOperation" ColumnName="NameOperation" />
+                <ScalarProperty Name="C_DateTime" ColumnName="_DateTime" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Type">
+            <EntityTypeMapping TypeName="MIEPModel.Type">
+              <MappingFragment StoreEntitySet="Type">
+                <ScalarProperty Name="IDType" ColumnName="IDType" />
+                <ScalarProperty Name="NameType" ColumnName="NameType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="MIEPModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Series" ColumnName="Series" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="EMail" ColumnName="EMail" />
+                <ScalarProperty Name="DateOfIssue" ColumnName="DateOfIssue" />
+                <ScalarProperty Name="Issued" ColumnName="Issued" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="PlaceOfBirth" ColumnName="PlaceOfBirth" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

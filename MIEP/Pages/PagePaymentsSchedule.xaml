@@ -1,0 +1,35 @@
+﻿<Page x:Class="MIEP.Pages.PagePaymentsSchedule"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MIEP.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PagePaymentsSchedule" Style="{StaticResource MainPage}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="70"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="dgSchedule" Style="{StaticResource dgWithoutLines}" ColumnHeaderStyle ="{StaticResource OrangeHeader}" BorderThickness="0" LoadingRow="dgSchedule_LoadingRow" Grid.ColumnSpan="2" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№ платежа" Binding="{Binding Id}" Width="100"/>
+                <DataGridTextColumn Header="Дата платежа" Binding="{Binding Date}" Width="*"/>
+                <DataGridTextColumn Header="Сумма платежа" Binding="{Binding Pay,StringFormat=C,ConverterCulture=RU-ru}" Width="*"/>
+                <DataGridTextColumn Header="Основной долг" Binding="{Binding Main,StringFormat=C,ConverterCulture=RU-ru}" Width="*"/>
+                <DataGridTextColumn Header="Начисленные&#10;проценты" Binding="{Binding Proc,StringFormat=C,ConverterCulture=RU-ru}" Width="*"/>
+                <DataGridTextColumn Header="Остаток&#10;задолженности"  Binding="{Binding Remains,StringFormat=C,ConverterCulture=RU-ru}" Width="*"/>
+            </DataGrid.Columns>
+            
+        </DataGrid>
+        
+
+        <Button x:Name="btnFormSchedule" Content="Сформировать график" Grid.Row="1" Width="200" Click="btnFormSchedule_Click"/>
+        <Button x:Name="btnGetCredit" Content="Получить кредит" Grid.Row="1" Grid.Column="1" Width="200" Click="btnGetCredit_Click"/>
+    </Grid>
+</Page>

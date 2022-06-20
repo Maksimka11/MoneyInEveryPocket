@@ -1,0 +1,100 @@
+﻿<Page x:Class="MIEP.Pages.PageInvestmentCalc"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MIEP.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PageInvestmentCalc" Style="{StaticResource MainPage}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Расчитать доход" FontSize="24"/>
+            <Grid Grid.Row="1" Margin="20 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Content="Сумма (Руб.)" FontSize="20" HorizontalAlignment="Left"/>
+                <TextBox x:Name="tbSumm" BorderBrush="DarkBlue" Grid.Row="1" PreviewTextInput="tbSumm_PreviewTextInput"/>
+                <Slider x:Name="sliderSumm"  Minimum="1000" Maximum="10000000" IsSnapToTickEnabled="True" TickFrequency="1000" Grid.Row="2" />
+            </Grid>
+            <Grid Grid.Row="2" Margin="20 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Content="Срок (Дней.)" FontSize="20" HorizontalAlignment="Left"/>
+                <TextBox x:Name="tbTerm" BorderBrush="DarkBlue"  Grid.Row="1" PreviewTextInput="tbSumm_PreviewTextInput"/>
+                <Slider x:Name="sliderTerm" Minimum="30" Maximum="1800" IsSnapToTickEnabled="True" TickFrequency="1" Grid.Row="2" />
+            </Grid>
+            <Grid Grid.Row="3" Margin="20 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Content="Ежемесячное пополнение (Руб.)" FontSize="20" HorizontalAlignment="Left"/>
+                <TextBox x:Name="tbDeposit" BorderBrush="DarkBlue" Grid.Row="1" PreviewTextInput="tbSumm_PreviewTextInput"/>
+                <Slider x:Name="sliderDeposit" Minimum="0" Maximum="5000000" IsSnapToTickEnabled="True" TickFrequency="1000" Grid.Row="2" />
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+            <Grid Margin="30 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Content="Стабильный" HorizontalAlignment="Left" FontSize="22"/>
+                <Label Grid.Row="1" Content="Доход по вкладу:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
+                <TextBox Grid.Row="2" x:Name="tbIncomeStab" IsReadOnly="True" BorderThickness="0" />
+                <Border BorderBrush="DarkBlue" Grid.Row="2" BorderThickness="0 0 0 1"/>
+            </Grid>
+            <Grid Grid.Row="1" Margin="30 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Content="Оптимальный" HorizontalAlignment="Left" FontSize="22"/>
+                <Label Grid.Row="1" Content="Доход по вкладу:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
+                <TextBox Grid.Row="2" x:Name="tbIncomeOpt" IsReadOnly="True" BorderThickness="0" />
+                <Border BorderBrush="DarkBlue" Grid.Row="2" BorderThickness="0 0 0 1"/>
+            </Grid>
+            <Grid Grid.Row="2" Margin="30 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Content="Стандарт" HorizontalAlignment="Left" FontSize="22"/>
+                <Label Grid.Row="1" Content="Доход по вкладу:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
+                <TextBox Grid.Row="2" x:Name="tbIncomeStand" IsReadOnly="True" BorderThickness="0" />
+                <Border BorderBrush="DarkBlue" Grid.Row="2" BorderThickness="0 0 0 1"/>
+            </Grid>
+            <Border BorderBrush="Gray" Grid.RowSpan="4" BorderThickness="1"/>
+            <Button Grid.Row="3" x:Name="btnParam" Click="btnParam_Click" Width="200" Content="Сравнить параметры"/>
+        </Grid>
+    </Grid>
+</Page>
